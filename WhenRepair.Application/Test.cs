@@ -13,6 +13,7 @@ namespace WhenRepair.Application
         {
             var results = await new FiasClient().Get("region", null);
 
+            Console.Write(JsonConvert.SerializeObject(results, Formatting.Indented));
             Assert.That(results, Is.Not.Empty);
         }
 
@@ -24,15 +25,17 @@ namespace WhenRepair.Application
                                                           Guid.Parse("95e3c889-e00a-41a2-aa26-bac735271d82"),
                                                           Guid.Parse("8882d015-1fc8-9f80-98ab-82eeb8a70232"));
 
+            Console.Write(JsonConvert.SerializeObject(result, Formatting.Indented));
             Assert.That(result.Length, Is.EqualTo(1));
         }
 
         [Test]
         public async Task Repair()
         {
-            var houseSummeries = await new RepairSearcher().Search("ул. Анри Барбюса 6");
+            var result = await new RepairSearcher().Search("ул. Анри Барбюса 6");
 
-            Assert.That(houseSummeries.Length, Is.EqualTo(3));
+            Console.Write(JsonConvert.SerializeObject(result, Formatting.Indented));
+            Assert.That(result.Length, Is.EqualTo(3));
         }
 
         [Test]
@@ -61,6 +64,15 @@ namespace WhenRepair.Application
             
             Console.Write(JsonConvert.SerializeObject(result, Formatting.Indented));
             Assert.That(result.TotalCount, Is.EqualTo(26));
+        }
+
+        [Test]
+        public async Task Geocoding_FromCoordinates()
+        {
+            var result = await new Geocoder().Get(new GeoCoordinate{Latitude = 60.15423675, Longitude = 59.96771635});
+            
+            Assert.That(result, Is.Not.Null);
+            Console.Write(result);
         }
     }
 }
