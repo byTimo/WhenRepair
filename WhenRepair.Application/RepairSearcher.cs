@@ -24,6 +24,7 @@ namespace WhenRepair.Application
             return dom.Select(".grid a").Select(x => new HouseSummery
             {
                 ServicesUri = new Uri(homeUri, x.GetAttribute("href")),
+                PasportUri = new Uri(homeUri, x.GetAttribute("href").Replace("services", "view")),
                 Title = x.FirstChild.NodeValue
             }).ToArray();
         }

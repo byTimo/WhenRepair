@@ -11,22 +11,60 @@ namespace WhenRepair.Application
         {
             BaseAddress = new Uri("http://nominatim.openstreetmap.org/search")
         };
-        
-        public Task<GeoCoordinate> Get(string address)
-        {
-            throw new NotImplementedException();
-        }
 
-        public async Task<string> Get(GeoCoordinate coordinate)
+        public Task<Address> Get(string latitude, string longitude)
         {
-            var query = $"{coordinate.Latitude}+{coordinate.Longitude}";
+            return Get(new GeoCoordinate {Latitude = latitude, Longitude = longitude});
+        }
+        
+        public async Task<GeoCoordinate> Get(string city, string street, string house)
+        {
+            var query = $"{city}+{street}+{house}";
             var responseMessage = await client.GetAsync($"?format=json&q={query}");
             responseMessage.EnsureSuccessStatusCode();
             var content = await responseMessage.Content.ReadAsStringAsync();
 
             var json = JArray.Parse(content);
 
-            return json.Count != 0 ? json.First["display_name"].ToString() : null;
+            return json.Count != 0 ? new GeoCoordinate
+            {
+                Latitude = json.First["lat"].ToString(),
+                Longitude = json.First["lon"].ToString()
+            } : null;
         }
+
+        public async Task<Address> Get(GeoCoordinate coordinate)
+        {
+            var query = $"{coordinate.Latitude}+{coordinate.Longitude}";
+            var responseMessage = await client.GetAsync($"?format=json&addressdetails=1&q={query}");
+            responseMessage.EnsureSuccessStatusCode();
+            var content = await responseMessage.Content.ReadAsStringAsync();
+
+            var json = JArray.Parse(content);
+
+            return json.Count != 0 ? new Address
+            {
+                City = json.First["address"]["city"]?.ToString() ?? "",
+                Street = json.First["address"]["road"]?.ToString() ?? "",
+                House = json.First["address"]["house_number"]?.ToString() ?? "",
+                Postcode = json.First["address"]["postcode"]?.ToString() ?? "",
+                State = json.First["address"]["state"]?.ToString() ?? ""
+            } : null;
+        }
+    }
+
+    public class Address
+    {
+        public string City { get; set; }
+
+        public string Street { get; set; }
+
+        public string House { get; set; }
+
+        public string Postcode { get; set; }
+
+        public string State { get; set; }
+
+        public override string ToString() => $"г. {City}, ул. {Street}, {House}";
     }
 }

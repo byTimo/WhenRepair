@@ -1,5 +1,4 @@
 ﻿@using Newtonsoft.Json
-@using WebGrease.Css.Extensions
 @model Webmap.Models.AddressesModel
 
 <!DOCTYPE html>
@@ -14,6 +13,7 @@
 
     <script src="~/Scripts/leaflet.markercluster-src.js"></script>
     <script src="~/Scripts/api.js"></script>
+    <script src="~/Scripts/app.js"></script>
     
     <style>
         html,
@@ -109,13 +109,8 @@
 
     populate();
     map.addLayer(markers);
-    
-    map.on('click', function(e) {
-        api.get("Address/Get", { latitude: e.latlng.lat, longitude: e.latlng.lng })
-            .then(function(address) {
-                alert(address);
-            });
-    });
+
+    map.on('click', function(e) { mapOnClick(e); });
 
 </script>
 
