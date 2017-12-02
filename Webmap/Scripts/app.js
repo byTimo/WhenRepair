@@ -1,11 +1,15 @@
 function mapOnClick(e) {
-    api.get("RepairInfo/Get", {latitude: e.latlng.lat, longitude: e.latlng.lng})
+    $("#loading_placeholder").show();
+    return api.get("RepairInfo/Get", {latitude: e.latlng.lat, longitude: e.latlng.lng})
         .then(function (data) {
-            if (!data)
+            $("#loading_placeholder").hide();
+            if (!data) {
+                $("#sidebarContainer").hide();
                 return;
+            }
             $("#sidebarContainer").show();
             var address = data.address;
-            $("#title").text("ул. " + address["Street"] + ", " + address["House"]);
+            $("#title").text(address["Street"] + ", " + address["House"]);
             $("#subtitle").text(address["City"] + ", " + address["State"]);
             $("#postcode").text(address["Postcode"]);
             

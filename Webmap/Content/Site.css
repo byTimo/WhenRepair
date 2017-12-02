@@ -1,24 +1,90 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿html,
+body {
+    margin: 0;
+    font-family: Arial;
+    font-size: 16px;
+    width: 100%;
+    height: 100%;
+
+}
+a {
+    text-decoration: none;
+}
+#map {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+#sidebarContainer {
+    display: none;
+    position: absolute;
+    top: 0;
+    width: 25%;
+    height: 96%;
+    background: orange;
+    margin-left: 1%;
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+}
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+}
+.one {
+    grid-column: 1 / 2;
+}
+.two {
+    grid-column: 2 / 2;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+[class*='close-'] {
+    color: #777;
+    font: 18px/100% arial, sans-serif;
+    position: absolute;
+    right: 25px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #fff;
+    top: 25px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.close-classic:after {
+    content: 'X'; /* ANSI X letter */
+}
+
+.close-thin:after {
+    content: '×'; /* UTF-8 symbol */
+}
+
+.close-thik:after {
+    content: '✖'; /* UTF-8 symbol */
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid lightslategray;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    background-color: transparent;
+    position: absolute;
+    margin-left: 43%;
+    margin-top: 50%;
+}
+
+.blocker {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0.4;
+    background: gray;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

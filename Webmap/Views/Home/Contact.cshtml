@@ -10,90 +10,11 @@
 	
     <link rel="stylesheet" href="~/Content/MarkerCluster.css"/>
     <link rel="stylesheet" href="~/Content/MarkerCluster.Default.css"/>
+    <link rel="stylesheet" href="~/Content/Site.css"/>
 
     <script src="~/Scripts/leaflet.markercluster-src.js"></script>
     <script src="~/Scripts/api.js"></script>
     <script src="~/Scripts/app.js"></script>
-    
-    <style>
-        html,
-        body {
-            margin: 0;
-            font-family: Arial;
-            font-size: 16px;
-            width: 100%;
-            height: 100%;
-            
-        }
-        a {
-            text-decoration: none;
-        }
-        #map {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
-        #sidebarContainer {
-            display: none;
-            position: absolute;
-            top: 0;
-            width: 25%;
-            height: 96%;
-            background: orange;
-            margin-left: 1%;
-            margin-top: 0.5%;
-            margin-bottom: 0.5%;
-            }
-        .wrapper {
-            display: grid;
-            grid-template-columns: repeat(2, 50%);
-        }
-        .one {
-            grid-column: 1 / 2;
-        }
-        .two {
-            grid-column: 2 / 2;
-        }
-        
-        [class*='close-'] {
-            color: #777;
-            font: 18px/100% arial, sans-serif;
-            position: absolute;
-            right: 25px;
-            text-decoration: none;
-            text-shadow: 0 1px 0 #fff;
-            top: 25px;
-        }
-
-        .close-classic:after {
-            content: 'X'; /* ANSI X letter */
-        }
-
-        .close-thin:after {
-            content: '×'; /* UTF-8 symbol */
-        }
-
-        .close-thik:after {
-            content: '✖'; /* UTF-8 symbol */
-        }
-        
-        .dialog {
-            background: #ddd;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            float: left;
-            height: 200px;
-            margin: 20px;
-            position: relative;
-            width: 150px;
-  
-        }
-
-    </style>
-
 </head>
 
 <body>
@@ -102,46 +23,50 @@
 <div id="map"></div>
 
 <div id="sidebarContainer">
+    <div id="loading_placeholder" style="display: none">
+        <div class="blocker"></div>
+        <div class="loader"></div>
+    </div>
     <a href="#" class="close-thik" onclick="$('#sidebarContainer').hide()"></a>
     <div>
         <h2 id="title">ул. Баумана, 31А</h2>
         <h3 id="subtitle">Екатеринбург, Свердловская обл.</h3>
         <h3 id="postcode">123456</h3>
     </div>
-    <div>
-        <button onclick="openTab('passport')">Паспорт</button>
-        <button onclick="openTab('queue')">Очередь работ</button>
+    <div id="info_placeholder" style="display: none">
+        Мы не нашли информацию о капитальном ремонте
     </div>
-
-    <div id="passport" class="tab">
-        <div id="info_placeholder" style="display: none">
-            Мы не нашли информацию о капитальном ремонте
+    <div id="info">
+        <div>
+            <button onclick="openTab('passport')">Паспорт</button>
+            <button onclick="openTab('queue')">Очередь работ</button>
         </div>
-        <div id="info" class="wrapper">
-            <div class="one" style="grid-row: 1">Год ввода в эксплуатацию</div>
-            <div class="two" style="grid-row: 1" id="StartingYear">не известно</div>
-            <div class="one" style="grid-row: 2">Размер взноса на капитальный ремонт</div>
-            <div class="two" style="grid-row: 2" id="PamentByMeter">не известно</div>
-            <div class="one" style="grid-row: 3">Собрано средств собственников</div>
-            <div class="two" style="grid-row: 3" id="Collected">не известно</div>
-            <div class="one" style="grid-row: 4">Текущая задолженность собственников по взносам</div>
-            <div class="two" style="grid-row: 4" id="Dept">не известно</div>
-            <div class="one" style="grid-row: 5">Израсходовано на работы </div>
-            <div class="two" style="grid-row: 5" id="Spent">не известно</div>
-            <div class="one" style="grid-row: 6">В т.ч. израсходовано субсидий</div>
-            <div class="two" style="grid-row: 6" id="SpentSubsidy">не известно</div>
-            <div class="one" style="grid-row: 7">Остаток средств на проведение капремонта</div>
-            <div class="two" style="grid-row: 7" id="Balance">не известно</div>
-            <div class="one" style="grid-row: 8">Год ближайших работ</div>
-            <div class="two" style="grid-row: 8" id="NextWorkYear">не известно</div>
+
+        <div id="passport" class="tab">
+            <div class="wrapper">
+                <div class="one" style="grid-row: 1">Год ввода в эксплуатацию</div>
+                <div class="two" style="grid-row: 1" id="StartingYear">не известно</div>
+                <div class="one" style="grid-row: 2">Размер взноса на капитальный ремонт</div>
+                <div class="two" style="grid-row: 2" id="PamentByMeter">не известно</div>
+                <div class="one" style="grid-row: 3">Собрано средств собственников</div>
+                <div class="two" style="grid-row: 3" id="Collected">не известно</div>
+                <div class="one" style="grid-row: 4">Текущая задолженность собственников по взносам</div>
+                <div class="two" style="grid-row: 4" id="Dept">не известно</div>
+                <div class="one" style="grid-row: 5">Израсходовано на работы </div>
+                <div class="two" style="grid-row: 5" id="Spent">не известно</div>
+                <div class="one" style="grid-row: 6">В т.ч. израсходовано субсидий</div>
+                <div class="two" style="grid-row: 6" id="SpentSubsidy">не известно</div>
+                <div class="one" style="grid-row: 7">Остаток средств на проведение капремонта</div>
+                <div class="two" style="grid-row: 7" id="Balance">не известно</div>
+                <div class="one" style="grid-row: 8">Год ближайших работ</div>
+                <div class="two" style="grid-row: 8" id="NextWorkYear">не известно</div>
+            </div>
+        </div>
+
+        <div id="queue" class="tab" style="display: none">
+            пизда
         </div>
     </div>
-
-    <div id="queue" class="tab" style="display: none">
-        пизда
-    </div>
-
-
 </div>
 
 <script>
@@ -152,13 +77,15 @@
 </script>
 
 <script>
+    var targetMarker = null;
+    
     var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            {
-                maxZoom: 18,
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }),
-        latlng = new L.LatLng(56.839360, 60.608925);
-
+        {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        });
+    
+    var latlng = new L.LatLng(56.839360, 60.608925);
     var map = new L.Map('map', { center: latlng, zoom: 15, layers: [tiles] });
 
     var markers = new L.MarkerClusterGroup();
@@ -166,7 +93,7 @@
 
     function populate() {
         var data = @Html.Raw(JsonConvert.SerializeObject(Model));
-        var yearsPoints = data.AddressDictionary[2017];
+        var yearsPoints = data.AddressDictionary[Object.keys(data.AddressDictionary)[0]];
         for (var i = 0; i < yearsPoints.length; i++) {
             var latLng = new L.LatLng(yearsPoints[i].Latitude, yearsPoints[i].Longitude);
             var m = new L.Marker(latLng);
@@ -221,7 +148,19 @@
     populate();
     map.addLayer(markers);
 
-    map.on('click', function(e) { mapOnClick(e); });
+    map.on('click', function(e) {
+        targetMarker && targetMarker.removeFrom(map);
+        map.panTo(new L.LatLng(e.latlng.lat, e.latlng.lng));
+        mapOnClick(e).then(function() {
+            if (!targetMarker) {
+                targetMarker = new L.Marker([e.latlng.lat, e.latlng.lng]);
+                targetMarker.addTo(map);
+            } else {
+                targetMarker.setLatLng([e.latlng.lat, e.latlng.lng]);
+                targetMarker.addTo(map);
+            }
+        });
+    });
 
 </script>
 
