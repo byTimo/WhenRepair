@@ -57,12 +57,16 @@
   <ItemGroup>
     <Compile Include="FiasResult.cs" />
     <Compile Include="FiasClient.cs" />
-    <Compile Include="HouseRepairDataExtractor.cs" />
-    <Compile Include="HouseRepairInfo.cs" />
+    <Compile Include="HouseCommonDataExtractor.cs" />
+    <Compile Include="HouseCommonData.cs" />
     <Compile Include="HouseSearcher.cs" />
+    <Compile Include="HouseServicesByYearDataExtractor.cs" />
     <Compile Include="HouseSummery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepairData.cs" />
+    <Compile Include="RepairDataExtractor.cs" />
     <Compile Include="RepairSearcher.cs" />
+    <Compile Include="ServiceData.cs" />
     <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>

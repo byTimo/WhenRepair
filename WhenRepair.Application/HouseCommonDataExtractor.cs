@@ -5,11 +5,11 @@ using CsQuery;
 
 namespace WhenRepair.Application
 {
-    public class HouseRepairDataExtractor
+    public class HouseCommonDataExtractor
     {
         private static readonly HttpClient client = new HttpClient();
         
-        public async Task<HouseRepairInfo> Extract(Uri passportUri)
+        public async Task<HouseCommonData> Extract(Uri passportUri)
         {
             var responseMessage = await client.GetAsync(passportUri);
             responseMessage.EnsureSuccessStatusCode();
@@ -20,7 +20,7 @@ namespace WhenRepair.Application
             var bulletInfo = cq.Select(".bulletin div span");
             var table = cq.Select(".table-details td span");
 
-            return new HouseRepairInfo
+            return new HouseCommonData
             {
                 StartingYear = table[1].FirstChild.NodeValue.Trim(),
                 PaementByMeter = bulletInfo[0].FirstChild.NodeValue.Trim(),

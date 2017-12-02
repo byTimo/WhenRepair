@@ -36,12 +36,22 @@ namespace WhenRepair.Application
         }
 
         [Test]
-        public async Task RepairInfo()
+        public async Task ServiceByYear()
         {
-            var result = await new HouseRepairDataExtractor().Extract(new Uri("https://www.reformagkh.ru/overhaul/overhaul/view/3175614"));
+            var serviceDatases = await new HouseServicesByYearDataExtractor().Extract(new Uri("https://www.reformagkh.ru/overhaul/overhaul/services/3175614"));
+
+            Console.Write(JsonConvert.SerializeObject(serviceDatases, Formatting.Indented));
+            Assert.That(serviceDatases["2023"].Length, Is.EqualTo(2));
+            Assert.That(serviceDatases["2043"].Length, Is.EqualTo(7));
+        }
+
+        [Test]
+        public async Task HouseCommon()
+        {
+            var result = await new HouseCommonDataExtractor().Extract(new Uri("https://www.reformagkh.ru/overhaul/overhaul/view/3175614"));
             
             Assert.That(result.NextWorkYear, Is.Not.Null);
-            Console.Write(JsonConvert.SerializeObject(result));
+            Console.Write(JsonConvert.SerializeObject(result, Formatting.Indented));
         }
     }
 }

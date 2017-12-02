@@ -1,6 +1,6 @@
 ﻿namespace WhenRepair.Application
 {
-    public class HouseRepairInfo
+    public class HouseCommonData
     {
         public string StartingYear { get; set; }
 
