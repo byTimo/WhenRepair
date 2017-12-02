@@ -4,7 +4,7 @@
     {
         public string StartingYear { get; set; }
 
-        public string PaementByMeter { get; set; }
+        public string PamentByMeter { get; set; }
 
         public string Collected { get; set; }
         

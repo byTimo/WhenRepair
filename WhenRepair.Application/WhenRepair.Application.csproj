@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Address.cs" />
     <Compile Include="AddressAutocomplete.cs" />
     <Compile Include="FiasResult.cs" />
     <Compile Include="FiasClient.cs" />

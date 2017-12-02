@@ -20,11 +20,11 @@ namespace Webmap.Controllers
             var searchQuery = $"{address.State} {address.City} {address.Street} {address.House}";
 
             var houseSummeries = await repairSearcher.Search(searchQuery);
-            if(houseSummeries.Length == 0)
-                return new HttpNotFoundResult();
+            if (houseSummeries.Length == 0)
+                return Json(new {address}, JsonRequestBehavior.AllowGet);
             
             var repairData = await dataExtractor.Extract(houseSummeries.First());
-            return Json(repairData, JsonRequestBehavior.AllowGet);
+            return Json(new {address, repair = repairData}, JsonRequestBehavior.AllowGet);
         }
     }
 }

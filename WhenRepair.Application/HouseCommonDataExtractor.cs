@@ -23,7 +23,7 @@ namespace WhenRepair.Application
             return new HouseCommonData
             {
                 StartingYear = table[1].FirstChild.NodeValue.Trim(),
-                PaementByMeter = bulletInfo[0].FirstChild.NodeValue.Trim(),
+                PamentByMeter = bulletInfo[0].FirstChild.NodeValue.Trim(),
                 Collected = bulletInfo[1].FirstChild.NodeValue.Trim(),
                 Dept = bulletInfo[2].FirstChild.NodeValue.Trim(),
                 Spent = bulletInfo[3].FirstChild.NodeValue.Trim(),
