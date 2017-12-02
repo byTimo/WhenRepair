@@ -55,8 +55,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressAutocomplete.cs" />
     <Compile Include="FiasResult.cs" />
     <Compile Include="FiasClient.cs" />
+    <Compile Include="HouseAutocomplieteProvider.cs" />
     <Compile Include="HouseCommonDataExtractor.cs" />
     <Compile Include="HouseCommonData.cs" />
     <Compile Include="HouseSearcher.cs" />

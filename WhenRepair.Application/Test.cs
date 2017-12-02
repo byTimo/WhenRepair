@@ -53,5 +53,14 @@ namespace WhenRepair.Application
             Assert.That(result.NextWorkYear, Is.Not.Null);
             Console.Write(JsonConvert.SerializeObject(result, Formatting.Indented));
         }
+
+        [Test]
+        public async Task Autocomplete()
+        {
+            var result = await new HouseAutocomplieteProvider().Get("ухтомского 3");
+            
+            Console.Write(JsonConvert.SerializeObject(result, Formatting.Indented));
+            Assert.That(result.TotalCount, Is.EqualTo(26));
+        }
     }
 }
