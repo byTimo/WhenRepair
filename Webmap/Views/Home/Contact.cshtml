@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ==" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js" integrity="sha512-WXoSHqw/t26DszhdMhOXOkI7qCiv5QWXhH9R7CgvgZMHz1ImlkVQ3uNsiQKu5wwbbxtPzFXd1hK4tzno2VqhpA==" crossorigin=""></script>
+	
+    <link rel="stylesheet" href="~/Content/MarkerCluster.css"/>
+    <link rel="stylesheet" href="~/Content/MarkerCluster.Default.css"/>
+
+    <script src="~/Scripts/leaflet.markercluster-src.js"></script>
+    
+    <style>
+        html,
+        body {
+            margin: 0;
+            font-family: Arial;
+            font-size: 16px;
+            width: 100%;
+            height: 100%;
+            
+        }
+        #map {
+            margin: -50px 0 0 0;
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div id="map"></div>
+
+
+<script>
+    var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }),
+        latlng = new L.LatLng(50.5, 30.51);
+
+    var map = new L.Map('map', {center: latlng, zoom: 15, layers: [tiles]});
+
+    var markers = new L.MarkerClusterGroup();
+    var markersList = [];
+
+    function populate() {
+        for (var i = 0; i < 100; i++) {
+            var m = new L.Marker(getRandomLatLng(map));
+            markersList.push(m);
+            markers.addLayer(m);
+            m.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+        }
+        return false;
+    }
+
+    function getRandomLatLng(map) {
+        var bounds = map.getBounds(),
+            southWest = bounds.getSouthWest(),
+            northEast = bounds.getNorthEast(),
+            lngSpan = northEast.lng - southWest.lng,
+            latSpan = northEast.lat - southWest.lat;
+
+        return new L.LatLng(
+            southWest.lat + latSpan * Math.random(),
+            southWest.lng + lngSpan * Math.random());
+    }
+
+
+    populate();
+    map.addLayer(markers);
+
+</script>
+
+</body>
+
+</html>
