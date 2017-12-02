@@ -69,7 +69,7 @@ namespace WhenRepair.Application
         [Test]
         public async Task Geocoding_FromCoordinates()
         {
-            var result = await new Geocoder().Get(new GeoCoordinate{Latitude = 60.15423675, Longitude = 59.96771635});
+            var result = await new Geocoder().Get(new GeoCoordinate{Latitude = "60.15423675", Longitude = "59.96771635"});
             
             Assert.That(result, Is.Not.Null);
             Console.Write(result);

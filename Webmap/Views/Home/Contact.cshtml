@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="~/Content/MarkerCluster.Default.css"/>
 
     <script src="~/Scripts/leaflet.markercluster-src.js"></script>
+    <script src="~/Scripts/api.js"></script>
     
     <style>
         html,
@@ -108,6 +109,13 @@
 
     populate();
     map.addLayer(markers);
+    
+    map.on('click', function(e) {
+        api.get("Address/Get", { latitude: e.latlng.lat, longitude: e.latlng.lng })
+            .then(function(address) {
+                alert(address);
+            });
+    });
 
 </script>
 

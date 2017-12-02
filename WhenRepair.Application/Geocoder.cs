@@ -19,7 +19,7 @@ namespace WhenRepair.Application
 
         public async Task<string> Get(GeoCoordinate coordinate)
         {
-            var query = $"{coordinate.Latitude:#######.#######}+{coordinate.Longitude:#######.#######}";
+            var query = $"{coordinate.Latitude}+{coordinate.Longitude}";
             var responseMessage = await client.GetAsync($"?format=json&q={query}");
             responseMessage.EnsureSuccessStatusCode();
             var content = await responseMessage.Content.ReadAsStringAsync();
