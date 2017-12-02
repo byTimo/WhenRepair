@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace WhenRepair.Application
@@ -32,6 +33,15 @@ namespace WhenRepair.Application
             var houseSummeries = await new RepairSearcher().Search("ул. Анри Барбюса 6");
 
             Assert.That(houseSummeries.Length, Is.EqualTo(3));
+        }
+
+        [Test]
+        public async Task RepairInfo()
+        {
+            var result = await new HouseRepairDataExtractor().Extract(new Uri("https://www.reformagkh.ru/overhaul/overhaul/view/3175614"));
+            
+            Assert.That(result.NextWorkYear, Is.Not.Null);
+            Console.Write(JsonConvert.SerializeObject(result));
         }
     }
 }

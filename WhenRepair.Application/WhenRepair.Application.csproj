@@ -57,6 +57,8 @@
   <ItemGroup>
     <Compile Include="FiasResult.cs" />
     <Compile Include="FiasClient.cs" />
+    <Compile Include="HouseRepairDataExtractor.cs" />
+    <Compile Include="HouseRepairInfo.cs" />
     <Compile Include="HouseSearcher.cs" />
     <Compile Include="HouseSummery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
