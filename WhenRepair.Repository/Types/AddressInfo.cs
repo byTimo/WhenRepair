@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
+using MongoDB.Bson;
 
 namespace WhenRepair.Repository.Types
 {
 	public class AddressInfo
 	{
-		public AddressInfo(string address)
-		{
-			Address = address;
-			Works = new List<WorksInfo>();
-		}
+		public ObjectId Oid { private get; set; }
 
+		public string DistrictName { get; set; }
 		public string Address { get; set; }
 		public List<WorksInfo> Works { get; set; }
+
+		public decimal Longitude { get; set; }
+		public decimal Lattitude { get; set; }
 	}
 }
