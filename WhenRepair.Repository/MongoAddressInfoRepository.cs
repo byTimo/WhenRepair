@@ -30,42 +30,33 @@ namespace WhenRepair.Repository
 			return res.ToList();
 		}
 
-		public async Task<IDictionary<(int start, int end), int>> GetYears()
+		public async Task<IDictionary<string, int>> GetYears()
 		{
 			var res = await Collection
 				.Find(FilterDefinition<AddressInfo>.Empty)
 				.ToListAsync();
 
 			return res.SelectMany(a => a.Works)
-				.Select(w => (w.PlannedStartYear, w.PlannedEndYear))
+				.Select(w => $"{w.PlannedStartYear}-{w.PlannedEndYear}")
 				.GroupBy(w => w)
 				.ToDictionary(w => w.Key, w => w.Count());
 		}
 
-		public Task<IDictionary<string, List<GeoCoordinate>>> GetBuildingsByYears(string years)
+		public Task<List<GeoCoordinate>> GetBuildingsByYears(string years)
 		{
-			throw new System.NotImplementedException();
+			var parts = years.Split('-').Select(int.Parse).ToArray();
+			return GetBuildingsByYears(parts[0], parts[1]);
 		}
-
-		//
-//		public Task<IDictionary<(int start, int end), List<GeoCoordinate>>> GetBuildingsByYears(int start, int end)
-//		{
-//			var res = Collection.Find(
-//				Builders<AddressInfo>.Filter.And(
-//					Builders<AddressInfo>.Filter.Where(info => info.Works.Any(w => w.PlannedStartYear == start)),
-//					Builders<AddressInfo>.Filter.Where(info => info.Works.Any(w => w.PlannedEndYear == end))
-//					))
-//					.Project(a => new
-//				{
-//					
-//				});
-//
-//			res.
-//		}
-
-		Task<IDictionary<string, int>> IAddressInfoRepository.GetYears()
+		
+		private async Task<List<GeoCoordinate>> GetBuildingsByYears(int start, int end)
 		{
-			throw new System.NotImplementedException();
+			var res = Collection.Find(
+					Builders<AddressInfo>.Filter.And(
+						Builders<AddressInfo>.Filter.Where(info => info.Works.Any(w => w.PlannedStartYear == start)),
+						Builders<AddressInfo>.Filter.Where(info => info.Works.Any(w => w.PlannedEndYear == end))
+					))
+				.Project(a => new GeoCoordinate {Latitude = $"{a.Lattitude}", Longitude = $"{a.Longitude}"});
+			return await res.ToListAsync();
 		}
 	}
 }

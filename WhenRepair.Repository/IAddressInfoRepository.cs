@@ -7,6 +7,6 @@ namespace WhenRepair.Repository
 	public interface IAddressInfoRepository
 	{
 		Task<IDictionary<string, int>> GetYears();
-		Task<IDictionary<string, List<GeoCoordinate>>> GetBuildingsByYears(string years);
+		Task<List<GeoCoordinate>> GetBuildingsByYears(string years);
 	}
 }
