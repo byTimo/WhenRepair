@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -73,6 +74,26 @@ namespace WhenRepair.Application
             
             Assert.That(result, Is.Not.Null);
             Console.Write(result);
+        }
+    }
+
+    public class AddressExtractor
+    {
+        private static readonly Regex patternCity = new Regex(@"г\.\s*(?<city>[\w\-а-яё]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex steetCity = new Regex(@"ул\.\s*(?<street>[\w\-а-яё\s]+),", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex houseCity = new Regex(@",\s*(?:д.)?\s*(?<house>[\d\w/]+$)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        
+        
+        public Address Extract(string line)
+        {
+            var result = new Address();
+            var city = patternCity.Match(line);
+            var street = steetCity.Match(line);
+            var house = houseCity.Match(line);
+            result.City = city.Success ? city.Groups["city"].Value : "";
+            result.Street = street.Success ? street.Groups["street"].Value : "";
+            result.House = house.Success ? house.Groups["house"].Value : "";
+            return result;
         }
     }
 }

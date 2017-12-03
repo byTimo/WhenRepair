@@ -5,10 +5,14 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ==" crossorigin="" />
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js" integrity="sha512-WXoSHqw/t26DszhdMhOXOkI7qCiv5QWXhH9R7CgvgZMHz1ImlkVQ3uNsiQKu5wwbbxtPzFXd1hK4tzno2VqhpA==" crossorigin=""></script>
-	
+
     <link rel="stylesheet" href="~/Content/MarkerCluster.css"/>
+    <link rel="stylesheet" href="~/Content/themes/base/jquery-ui.min.css"/>
     <link rel="stylesheet" href="~/Content/MarkerCluster.Default.css"/>
     <link rel="stylesheet" href="~/Content/Site.css"/>
 
@@ -23,50 +27,60 @@
 <div id="map"></div>
 
 <div id="sidebarContainer">
-    <div id="loading_placeholder" style="display: none">
-        <div class="blocker"></div>
-        <div class="loader"></div>
-    </div>
-    <a href="#" class="close-thik" onclick="$('#sidebarContainer').hide()"></a>
     <div>
-        <h2 id="title">ул. Баумана, 31А</h2>
-        <h3 id="subtitle">Екатеринбург, Свердловская обл.</h3>
-        <h3 id="postcode">123456</h3>
+        <input id="addressInput"/>
     </div>
-    <div id="info_placeholder" style="display: none">
-        Мы не нашли информацию о капитальном ремонте
-    </div>
-    <div id="info">
-        <div id="btn_div">
-            <button class="btn_tab active" onclick="openTab('passport')">Паспорт</button>
-            <button class="btn_tab" onclick="openTab('queue')">Очередь работ</button>
+    <div id="infoPanel" style="display: none">
+        <div id="loading_placeholder" style="display: none">
+            <div class="blocker"></div>
+            <div class="loader"></div>
         </div>
+        <a href="#" class="close-thik" onclick="$('#infoPanel').hide()"></a>
+        <div id="repairProperties" class="left_child">
+            <div>
+                <h2 id="title">ул. Баумана, 31А</h2>
+                <h3 id="subtitle">Екатеринбург, Свердловская обл.</h3>
+                <h3 id="postcode">123456</h3>
+            </div>
+            <div id="info_placeholder" style="display: none">
+                Мы не нашли информацию о капитальном ремонте
+            </div>
+            <div id="info">
+                <div id="btn_div">
+                    <button class="btn_tab active" onclick="openTab('passport')">Паспорт</button>
+                    <button class="btn_tab" onclick="openTab('queue')">Очередь работ</button>
+                </div>
 
-        <div id="passport" class="tab">
-            <div class="wrapper">
-                <div class="one" style="grid-row: 1">Год ввода в эксплуатацию</div>
-                <div class="two" style="grid-row: 1" id="StartingYear">не известно</div>
-                <div class="one" style="grid-row: 2">Размер взноса на капитальный ремонт</div>
-                <div class="two" style="grid-row: 2" id="PamentByMeter">не известно</div>
-                <div class="one" style="grid-row: 3">Собрано средств собственников</div>
-                <div class="two" style="grid-row: 3" id="Collected">не известно</div>
-                <div class="one" style="grid-row: 4">Текущая задолженность собственников по взносам</div>
-                <div class="two" style="grid-row: 4" id="Dept">не известно</div>
-                <div class="one" style="grid-row: 5">Израсходовано на работы </div>
-                <div class="two" style="grid-row: 5" id="Spent">не известно</div>
-                <div class="one" style="grid-row: 6">В т.ч. израсходовано субсидий</div>
-                <div class="two" style="grid-row: 6" id="SpentSubsidy">не известно</div>
-                <div class="one" style="grid-row: 7">Остаток средств на проведение капремонта</div>
-                <div class="two" style="grid-row: 7" id="Balance">не известно</div>
-                <div class="one" style="grid-row: 8">Год ближайших работ</div>
-                <div class="two" style="grid-row: 8" id="NextWorkYear">не известно</div>
+                <div id="passport" class="tab">
+                    <div class="wrapper">
+                        <div class="one" style="grid-row: 1">Год ввода в эксплуатацию</div>
+                        <div class="two" style="grid-row: 1" id="StartingYear">не известно</div>
+                        <div class="one" style="grid-row: 2">Размер взноса на капитальный ремонт</div>
+                        <div class="two" style="grid-row: 2" id="PamentByMeter">не известно</div>
+                        <div class="one" style="grid-row: 3">Собрано средств собственников</div>
+                        <div class="two" style="grid-row: 3" id="Collected">не известно</div>
+                        <div class="one" style="grid-row: 4">Текущая задолженность собственников по взносам</div>
+                        <div class="two" style="grid-row: 4" id="Dept">не известно</div>
+                        <div class="one" style="grid-row: 5">Израсходовано на работы </div>
+                        <div class="two" style="grid-row: 5" id="Spent">не известно</div>
+                        <div class="one" style="grid-row: 6">В т.ч. израсходовано субсидий</div>
+                        <div class="two" style="grid-row: 6" id="SpentSubsidy">не известно</div>
+                        <div class="one" style="grid-row: 7">Остаток средств на проведение капремонта</div>
+                        <div class="two" style="grid-row: 7" id="Balance">не известно</div>
+                        <div class="one" style="grid-row: 8">Год ближайших работ</div>
+                        <div class="two" style="grid-row: 8" id="NextWorkYear">не известно</div>
+                    </div>
+                </div>
+
+                <div id="queue" class="tab" style="display: none">
+                    скоро будет
+                </div>
             </div>
         </div>
-
-        <div id="queue" class="tab" style="display: none">
-            пизда
+        <div id="searchingInfo" class="left_child">
+            <ul id="searchingResult">
+            </ul>
         </div>
-    </div>
 </div>
 
 <script>
@@ -149,19 +163,10 @@
     populate();
     map.addLayer(markers);
 
-    map.on('click', function(e) {
-        targetMarker && targetMarker.removeFrom(map);
-        map.panTo(new L.LatLng(e.latlng.lat, e.latlng.lng));
-        mapOnClick(e).then(function() {
-            if (!targetMarker) {
-                targetMarker = new L.Marker([e.latlng.lat, e.latlng.lng]);
-                targetMarker.addTo(map);
-            } else {
-                targetMarker.setLatLng([e.latlng.lat, e.latlng.lng]);
-                targetMarker.addTo(map);
-            }
+    map.on('click',
+        function(e) {
+            getRepairInfo(map, e.latlng.lat, e.latlng.lng);
         });
-    });
 
 </script>
 

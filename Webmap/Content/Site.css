@@ -19,7 +19,6 @@ a {
 }
 
 #sidebarContainer {
-    display: none;
     position: absolute;
     top: 0;
     width: 450px;
@@ -68,6 +67,12 @@ button.btn_tab.active {
 }
 
 .tab 
+
+
+#infoPanel {
+    background: orange;
+    display: none;
+}
 
 .wrapper {
     display: grid;
