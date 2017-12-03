@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
@@ -43,15 +42,12 @@ namespace WhenRepair.Repository
 				.ToDictionary(w => w.Key, w => w.Count());
 		}
 
-		public Task<IDictionary<(int start, int end), List<GeoCoordinate>>> GetBuildingsByYears((int start, int end) years)
+		public Task<IDictionary<string, List<GeoCoordinate>>> GetBuildingsByYears(string years)
 		{
-			return GetBuildingsByYears(years.start, years.end);
+			throw new System.NotImplementedException();
 		}
 
-		public Task<IDictionary<(int start, int end), List<GeoCoordinate>>> GetBuildingsByYears(int start, int end)
-		{
-			throw new NotImplementedException();
-		}
+		//
 //		public Task<IDictionary<(int start, int end), List<GeoCoordinate>>> GetBuildingsByYears(int start, int end)
 //		{
 //			var res = Collection.Find(
@@ -66,5 +62,10 @@ namespace WhenRepair.Repository
 //
 //			res.
 //		}
+
+		Task<IDictionary<string, int>> IAddressInfoRepository.GetYears()
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }
