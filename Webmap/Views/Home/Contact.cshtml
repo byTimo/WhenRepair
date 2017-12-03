@@ -130,25 +130,7 @@
     var markers = new L.MarkerClusterGroup();
     var markersList = [];
 
-    function populate() {
-        var data = @Html.Raw(JsonConvert.SerializeObject(Model));
-        var yearsPoints = data.AddressDictionary[Object.keys(data.AddressDictionary)[0]];
-        for (var i = 0; i < yearsPoints.length; i++) {
-            var latLng = new L.LatLng(yearsPoints[i].Latitude, yearsPoints[i].Longitude);
-            var m = new L.Marker(latLng);
-            markersList.push(m);
-            markers.addLayer(m);
-            m.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-        }
-
-        //for (var i = 0; i < 100; i++) {
-        //    var m = new L.Marker(getRandomLatLng(map));
-        //    markersList.push(m);
-        //    markers.addLayer(m);
-        //    m.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-        //}
-        return false;
-    }
+ 
 
     function getRandomLatLng(map) {
         var bounds = map.getBounds(),
@@ -161,9 +143,6 @@
             southWest.lat + latSpan * Math.random(),
             southWest.lng + lngSpan * Math.random());
     }
-
-
-    populate();
     map.addLayer(markers);
 
     map.on('click',
