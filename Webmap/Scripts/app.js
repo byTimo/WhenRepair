@@ -51,8 +51,10 @@ function selectLayer(number) {
 
     new Promise(function (resolve) {
         if (!layer) {
+            $("#loading_placeholder").show();
             api.get("Layers/GetLayer", {years: keys[number]})
                 .then(function (data) {
+                    $("#loading_placeholder").hide();
                     years[keys[number]] = data;
                     resolve(data);
                 })
@@ -108,4 +110,9 @@ $( function() {
                 selectLayer(0);
         })
     
+    $("#layers_btn").on('click', function () {
+        $("#sidebarContainer").show();
+        $(".left_child").hide();
+        $("#yearsInfo").show();
+    });
 } );
