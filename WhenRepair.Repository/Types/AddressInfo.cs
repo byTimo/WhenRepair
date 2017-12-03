@@ -5,7 +5,7 @@ namespace WhenRepair.Repository.Types
 {
 	public class AddressInfo
 	{
-		public ObjectId Oid { private get; set; }
+		public ObjectId _id { private get; set; }
 
 		public string DistrictName { get; set; }
 		public string Address { get; set; }

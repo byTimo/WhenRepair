@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
@@ -12,29 +13,18 @@ namespace WhenRepair.Repository
 		private readonly IMongoClient client;
 
 		private IMongoCollection<AddressInfo> Collection =>
-			client.GetDatabase("repairs-db").GetCollection<AddressInfo>("districts");
+			client.GetDatabase("repairs-db").GetCollection<AddressInfo>("addresses");
 
 		public MongoAddressInfoRepository(string connectionString)
 		{
 			client = new MongoClient(connectionString);
 		}
 
-		public async Task<IEnumerable<AddressInfo>> GetByDistrictAndYear(string district, int year)
-		{
-			var res = await Collection.FindAsync(
-				Builders<AddressInfo>.Filter.And(
-					Builders<AddressInfo>.Filter.Where(a => a.DistrictName.Equals(district)),
-					Builders<AddressInfo>.Filter.Where(a => a.Works.Any(w => year >= w.PlannedStartYear && year <= w.PlannedEndYear))
-					));
-
-			return res.ToList();
-		}
-
 		public async Task<IDictionary<string, int>> GetYears()
 		{
-			var res = await Collection
+			var res = Collection
 				.Find(FilterDefinition<AddressInfo>.Empty)
-				.ToListAsync();
+				.ToEnumerable();
 
 			return res.SelectMany(a => a.Works)
 				.Select(w => $"{w.PlannedStartYear}-{w.PlannedEndYear}")
@@ -55,7 +45,7 @@ namespace WhenRepair.Repository
 						Builders<AddressInfo>.Filter.Where(info => info.Works.Any(w => w.PlannedStartYear == start)),
 						Builders<AddressInfo>.Filter.Where(info => info.Works.Any(w => w.PlannedEndYear == end))
 					))
-				.Project(a => new GeoCoordinate {Latitude = $"{a.Lattitude}", Longitude = $"{a.Longitude}"});
+				.Project(a => new GeoCoordinate {Latitude = a.Lattitude.ToString(CultureInfo.InvariantCulture), Longitude = a.Longitude.ToString(CultureInfo.InvariantCulture)});
 			return await res.ToListAsync();
 		}
 	}
