@@ -32,6 +32,7 @@ function mapOnClick(lat, lng) {
 }
 
 function getRepairInfo(map, lat, lng) {
+    markers.clearLayers();
     targetMarker && targetMarker.removeFrom(map);
     map.panTo(new L.LatLng(lat, lng));
     mapOnClick(lat,  lng).then(function() {
@@ -106,9 +107,9 @@ $( function() {
                 years[data[i]] = null;
                 $years.append($("<li class='list_item active' onclick='selectLayer(" + i + ")'>" + data[i] + "</li>"));
             }
-            if (data.length > 0)
-                selectLayer(0);
-        })
+            // if (data.length > 0)
+            //     selectLayer(0);
+        });
     
     $("#layers_btn").on('click', function () {
         $("#sidebarContainer").show();
