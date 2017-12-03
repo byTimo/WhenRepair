@@ -22,22 +22,71 @@ a {
     display: none;
     position: absolute;
     top: 0;
-    width: 25%;
+    width: 450px;
     height: 96%;
-    background: orange;
-    margin-left: 1%;
+    background: #ffffff;
+    margin-left: 55px;
     margin-top: 0.5%;
     margin-bottom: 0.5%;
+    padding: 15px;
 }
+
+#sidebarContainer #title {
+    font-size: 30px;
+    /*margin-bottom: -5px;*/
+}
+
+#sidebarContainer #subtitle, #sidebarContainer #postcode {
+        font-size: 20px;
+        color: #909090;
+        margin: 0;
+    }
+
+#sidebarContainer #postcode {
+    font-size: 20px;
+    
+    margin-bottom: 15px;
+}
+
+button.btn_tab {
+    background-color: #ffffff;
+    padding: 15px 15px 5px;
+    outline: none !important;
+    border: #ffffff solid 2px;
+}
+
+button.btn_tab.active {
+    border-bottom: #0000ff solid 2px;
+}
+
+#btn_div {
+    border-bottom: #e7e7e7 solid 1px;
+}
+
+.tab {
+    /*padding-top: 15px;*/
+}
+
+.tab 
+
 .wrapper {
     display: grid;
     grid-template-columns: repeat(2, 50%);
+
 }
 .one {
     grid-column: 1 / 2;
+    padding: 10px;
+    border-bottom: #e7e7e7 dashed 1px;
+    vertical-align: middle;
 }
 .two {
+    display: block;
     grid-column: 2 / 2;
+    padding: 10px;
+    vertical-align: middle;
+    /*line-height: 50px;*/
+    border-bottom: #e7e7e7 dashed 1px;
 }
 
 [class*='close-'] {

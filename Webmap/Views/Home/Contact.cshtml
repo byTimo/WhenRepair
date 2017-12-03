@@ -37,9 +37,9 @@
         Мы не нашли информацию о капитальном ремонте
     </div>
     <div id="info">
-        <div>
-            <button onclick="openTab('passport')">Паспорт</button>
-            <button onclick="openTab('queue')">Очередь работ</button>
+        <div id="btn_div">
+            <button class="btn_tab active" onclick="openTab('passport')">Паспорт</button>
+            <button class="btn_tab" onclick="openTab('queue')">Очередь работ</button>
         </div>
 
         <div id="passport" class="tab">
@@ -73,6 +73,7 @@
     function openTab(id) {
         $(".tab").hide();
         $("#" + id).show();
+        $(".btn_tab").toggleClass("active");
     }
 </script>
 
