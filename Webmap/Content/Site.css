@@ -19,7 +19,7 @@ a {
 }
 
 #sidebarContainer {
-    position: absolute;
+    position: relative;
     top: 0;
     width: 450px;
     height: 96%;
@@ -28,6 +28,47 @@ a {
     margin-top: 0.5%;
     margin-bottom: 0.5%;
     padding: 15px;
+    border-radius: 2px;
+}
+
+#autocomplit_Container {
+    position: relative;
+    display: inline-block;
+    top: 0;
+    width: 450px;
+    background: #ffffff;
+    margin-left: 55px;
+    margin-top: 0.5%;
+    padding: 15px;
+    border-radius: 2px;
+}
+
+    #autocomplit_Container div {
+        display: inline-block;
+        position: relative;
+    }
+
+    #auto {
+        width: 85%;
+    }
+    
+    #layers_btn {
+        /*position: absolute;*/
+        background: #ffffff;
+        margin-left: 10px;
+        /*right: 15px;*/
+        padding: 9px 15px;
+        border: #909090 solid 1px;
+        border-radius: 2px;
+    }
+
+#layers_btn img {
+    width: 16px;
+
+}
+
+#addressInput {
+    padding: 8px;
 }
 
 #sidebarContainer #title {
@@ -66,11 +107,12 @@ button.btn_tab.active {
     /*padding-top: 15px;*/
 }
 
-.tab 
-
+#addressInput {
+    width: 100%;
+}
 
 #infoPanel {
-    background: orange;
+    background: #fff;
     display: none;
 }
 

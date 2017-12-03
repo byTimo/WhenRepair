@@ -4,10 +4,10 @@ function mapOnClick(lat, lng) {
         .then(function (data) {
             $("#loading_placeholder").hide();
             if (!data) {
-                $("#infoPanel").hide();
+                $("#sidebarContainer").hide();
                 return;
             }
-            $("#infoPanel").show();
+            $("#sidebarContainer").show();
             $(".left_child").hide();
             $("#repairProperties").show();
             var address = data.address;
