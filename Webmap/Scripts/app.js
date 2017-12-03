@@ -104,7 +104,7 @@ $( function() {
             var $years = $("#years");
             for (var i = 0; i < data.length; i++){
                 years[data[i]] = null;
-                $years.append($("<li onclick='selectLayer(" + i + ")'>" + data[i] + "</li>"));
+                $years.append($("<li class='list_item active' onclick='selectLayer(" + i + ")'>" + data[i] + "</li>"));
             }
             if (data.length > 0)
                 selectLayer(0);

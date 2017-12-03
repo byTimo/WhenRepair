@@ -42,8 +42,11 @@
             <div class="blocker"></div>
             <div class="loader"></div>
         </div>
-        <a href="#" class="close-thik" onclick="$('#sidebarContainer').hide()"></a>
-        <div id="repairProperties" class="left_child">
+    <a href="#" class="close-thik" onclick="$('#sidebarContainer').hide()"></a>
+    
+   
+
+    <div id="repairProperties" class="left_child">
             <div>
                 <h2 id="title">ул. Баумана, 31А</h2>
                 <h3 id="subtitle">Екатеринбург, Свердловская обл.</h3>
@@ -102,7 +105,7 @@
             </div>
         </div>
         <div id="yearsInfo" class="left_child">
-            <ul id="years">
+            <ul id="years" class="list_years">
             </ul>
         </div>
 </div>
@@ -113,6 +116,10 @@
         $("#" + id).show();
         $(".btn_tab").toggleClass("active");
     }
+
+    $( "#layers_btn" ).click(function() {
+        $(this).toggleClass("active_btn"); 
+    });
 </script>
 
 <script>

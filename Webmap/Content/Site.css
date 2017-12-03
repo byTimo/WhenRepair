@@ -46,11 +46,12 @@ a {
     #autocomplit_Container div {
         display: inline-block;
         position: relative;
+
     }
 
-    #auto {
-        width: 85%;
-    }
+#auto {
+    width: 85%;
+}
     
     #layers_btn {
         /*position: absolute;*/
@@ -58,9 +59,23 @@ a {
         margin-left: 10px;
         /*right: 15px;*/
         padding: 9px 15px;
-        border: #909090 solid 1px;
+        border: #a0a0a0 solid 1px;
         border-radius: 2px;
+        cursor: pointer;
     }
+
+        #layers_btn.active_btn {
+            border: #0000ff solid 1px;
+            background: #a8a8ff;
+            opacity: 0.7;
+        }
+
+
+        #layers {
+            display: inline-block;
+
+        }
+
 
 #layers_btn img {
     width: 16px;
@@ -178,6 +193,24 @@ button.btn_tab.active {
     position: absolute;
     opacity: 0.4;
     background: gray;
+    left: 0;
+    top: 0;
+}
+
+.list_years {
+    margin-top: 25px;
+    padding: 10px;
+}
+
+.list_item {
+    padding-bottom: 10px;
+    cursor: pointer;
+    list-style-type: none;
+}
+
+.list_item.active {
+    color: #0000ff;
+    font-weight: bold;
 }
 
 @keyframes spin {
