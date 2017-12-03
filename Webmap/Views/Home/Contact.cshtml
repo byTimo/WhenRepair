@@ -101,8 +101,8 @@
                 </div>
             </div>
         </div>
-        <div id="searchingInfo" class="left_child">
-            <ul id="searchingResult">
+        <div id="yearsInfo" class="left_child">
+            <ul id="years">
             </ul>
         </div>
 </div>
@@ -135,27 +135,6 @@
         var yearsPoints = data.AddressDictionary[Object.keys(data.AddressDictionary)[0]];
         for (var i = 0; i < yearsPoints.length; i++) {
             var latLng = new L.LatLng(yearsPoints[i].Latitude, yearsPoints[i].Longitude);
-            var m = new L.Marker(latLng);
-            markersList.push(m);
-            markers.addLayer(m);
-            m.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-        }
-
-        //for (var i = 0; i < 100; i++) {
-        //    var m = new L.Marker(getRandomLatLng(map));
-        //    markersList.push(m);
-        //    markers.addLayer(m);
-        //    m.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-        //}
-        return false;
-    }
-
-    function populateWithYear(year) {
-        markers.clearLayers();
-        var data = @Html.Raw(JsonConvert.SerializeObject(Model));
-        var yearsPoints = data.AddressDictionary[year.value];
-        for (var k = 0; k < yearsPoints.length; k++) {
-            var latLng = new L.LatLng(yearsPoints[k].Latitude, yearsPoints[k].Longitude);
             var m = new L.Marker(latLng);
             markersList.push(m);
             markers.addLayer(m);

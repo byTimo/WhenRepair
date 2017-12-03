@@ -1,3 +1,4 @@
+var years = {};
 function mapOnClick(lat, lng) {
     $("#loading_placeholder").show();
     return api.get("RepairInfo/Get", {latitude: lat, longitude: lng})
@@ -44,6 +45,33 @@ function getRepairInfo(map, lat, lng) {
     });
 }
 
+function selectLayer(number) {
+    var keys = Object.keys(years);
+    var layer = years[keys[number]];
+
+    new Promise(function (resolve) {
+        if (!layer) {
+            api.get("Layers/GetLayer", {years: keys[number]})
+                .then(function (data) {
+                    years[keys[number]] = data;
+                    resolve(data);
+                })
+        } else {
+            resolve(layer);
+        }
+    })
+        .then(function (coord) {
+            markers.clearLayers();
+            for (var k = 0; k < coord.length; k++) {
+                var latLng = new L.LatLng(coord[k].Latitude, coord[k].Longitude);
+                var m = new L.Marker(latLng);
+                markersList.push(m);
+                markers.addLayer(m);
+            }
+            return false;
+        });
+}
+
 $( function() {
     var cache = {};
     $("#addressInput").autocomplete({
@@ -68,4 +96,16 @@ $( function() {
                 });
         }
     });
+    
+    api.get("Layers/GetYears", {})
+        .then(function (data) {
+            var $years = $("#years");
+            for (var i = 0; i < data.length; i++){
+                years[data[i]] = null;
+                $years.append($("<li onclick='selectLayer(" + i + ")'>" + data[i] + "</li>"));
+            }
+            if (data.length > 0)
+                selectLayer(0);
+        })
+    
 } );
